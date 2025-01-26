@@ -35,5 +35,12 @@ steps:
   - deploy_firestore_indexes
   - transactional_writes_firestore
   - strengthen_app_security
+  - conclusion
 type: PROMPT
 repository: https://github.com/firebase/friendlyeats-web
+frameworks:
+  backend:
+    - node
+sidebarTools:
+  - name: Firebase Console
+    link: https://console.firebase.google.com/

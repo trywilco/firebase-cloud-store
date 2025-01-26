@@ -29,7 +29,16 @@ startFlow:
                 this.getDocumentsInQuery(query, renderer);
               };
 
-              ``` Verify filtering works for categories, cities, and prices via dynamic queries. Solve index errors through automatic index creation links Firebase provides.
+              ```
+
+              This implementation creates compound queries by combining multiple where filters with orderBy clauses. Test the filtering by price, city, and category in your browser.
+
+              Note: You'll see console errors about missing indexes - this is expected! Cloud Firestore requires indexes for compound queries to maintain performance. Simply click the provided error links to create necessary indexes in the Firebase Console.
+
+              The error message will look like:
+              "The query requires an index. You can create it here: https://console.firebase.google.com/project/..."
+
+              These indexes are crucial for maintaining Firestore's performance at scale.
     - actionId: ready_message
       params:
         person: lucca

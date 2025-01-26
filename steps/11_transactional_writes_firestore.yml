@@ -1,11 +1,9 @@
 id: transactional_writes_firestore
 learningObjectives:
-  - Execute multi-step transactions for data consistency.
+  - Execute multi-step transactions to maintain data consistency
 hints:
-  - Learn about Firestore transactions
-    [here](https://firebase.google.com/docs/firestore/manage-data/transactions).
-  - This [video explainer](https://www.youtube.com/watch?v=UFO5MEem40E)
-    clarifies transactions and how to use them effectively.
+  - "Transactions ensure all operations either succeed or fail together. Learn more in the [Firestore docs](https://firebase.google.com/docs/firestore/manage-data/transactions)"
+  - "For production apps, consider moving average calculations to Cloud Functions for security"
 startFlow:
   do:
     - actionId: bot_message
@@ -13,29 +11,38 @@ startFlow:
         person: lucca
         messages:
           - text: >-
-              Get hands-on with transactions to keep your data consistent.
-              Modify the `addRating` function to ensure synchronized updates
-              across databases:
+              Let's implement transactions to handle restaurant ratings safely. 
+              When users rate a restaurant, we need to:
+              1. Add their rating to a subcollection
+              2. Update the restaurant's average rating
+              3. Increment the total number of ratings
+              
+              All these updates must happen together or not at all. Here's the code:
 
               ```javascript
-
               FriendlyEats.prototype.addRating = function(restaurantID, rating) {
                 var collection = firebase.firestore().collection('restaurants');
                 var document = collection.doc(restaurantID);
                 var newRatingDocument = document.collection('ratings').doc();
+
                 return firebase.firestore().runTransaction(function(transaction) {
                   return transaction.get(document).then(function(doc) {
                     var data = doc.data();
                     var newAverage = (data.numRatings * data.avgRating + rating.rating) / (data.numRatings + 1);
+                    
                     transaction.update(document, {
-                      numRatings: data.numRatings + 1, avgRating: newAverage
+                      numRatings: data.numRatings + 1,
+                      avgRating: newAverage
                     });
                     return transaction.set(newRatingDocument, rating);
                   });
                 });
               };
+              ```
 
-              ``` Transactions ensure all necessary data changes occur cohesively, preventing mismatches.
+              This transaction ensures all updates succeed or fail together, maintaining data consistency.
+              
+              Note: In production, consider moving average calculations to Cloud Functions for better security.
     - actionId: ready_message
       params:
         person: lucca

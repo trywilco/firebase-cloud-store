@@ -22,7 +22,8 @@ startFlow:
                 return firebase.firestore().collection('restaurants').doc(id).get();
               };
 
-              ``` Clicking on a restaurant in your app should now show detailed views. Perfect for scenarios where real-time updates aren’t needed, reducing bandwidth and focusing on specific data.
+              ```
+              Clicking on a restaurant in your app should now show detailed views. Perfect for scenarios where real-time updates aren’t needed, reducing bandwidth and focusing on specific data.
     - actionId: ready_message
       params:
         person: lucca

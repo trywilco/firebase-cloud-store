@@ -13,11 +13,13 @@ startFlow:
         person: lucca
         messages:
           - text: >-
-              Show off our tasty data collection with real-time updates! Head to
-              `scripts/FriendlyEats.Data.js` and replace `getAllRestaurants`:
+              Let's implement real-time data retrieval from Cloud Firestore! This involves two key steps:
+              1. Creating a query to fetch restaurants
+              2. Adding a snapshot listener for real-time updates
+
+              First, head to `scripts/FriendlyEats.Data.js` and replace `getAllRestaurants`:
 
               ```javascript
-
               FriendlyEats.prototype.getAllRestaurants = function(renderer) {
                 var query = firebase.firestore()
                   .collection('restaurants')
@@ -25,22 +27,36 @@ startFlow:
                   .limit(50);
                 this.getDocumentsInQuery(query, renderer);
               };
+              ```
 
-              ``` Now, add a snapshot listener in `getDocumentsInQuery`:
+              This query will fetch up to 50 restaurants, ordered by their average rating.
+
+              Now, add a snapshot listener in `getDocumentsInQuery` to handle real-time updates:
 
               ```javascript
-
               FriendlyEats.prototype.getDocumentsInQuery = function(query, renderer) {
                 query.onSnapshot(function(snapshot) {
-                  if (!snapshot.size) return renderer.empty();
+                  if (!snapshot.size) return renderer.empty(); // Display "There are no restaurants".
                   snapshot.docChanges().forEach(function(change) {
-                    if (change.type === 'removed') renderer.remove(change.doc);
-                    else renderer.display(change.doc);
+                    if (change.type === 'removed') {
+                      renderer.remove(change.doc);
+                    } else {
+                      renderer.display(change.doc);
+                    }
                   });
                 });
               };
+              ```
 
-              ``` Load up the app and confirm real-time restaurant listings update automatically.
+              The snapshot listener will:
+              - Initially load all matching restaurants
+              - Automatically update the UI when restaurants are added/modified/deleted
+              - Remove restaurants from the UI when deleted in Firestore
+
+              Try it out:
+              1. Load the app to see your restaurants
+              2. Make changes in the Firebase Console
+              3. Watch the app update in real-time!
     - actionId: ready_message
       params:
         person: lucca

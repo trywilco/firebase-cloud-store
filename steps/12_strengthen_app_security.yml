@@ -2,10 +2,8 @@ id: strengthen_app_security
 learningObjectives:
   - Secure app data with Firebase security rules.
 hints:
-  - Brush up on security with this [security rules
-    guide](https://firebase.google.com/docs/firestore/security/get-started).
-  - If you’re into visual aids, here’s a helpful
-    [video](https://www.youtube.com/watch?v=MGkDFsOWut0) on Firebase security.
+  - Get started with Firebase security rules in the [official documentation](https://firebase.google.com/docs/firestore/security/get-started).
+  - Learn more from this [video tutorial](https://www.youtube.com/watch?v=MGkDFsOWut0) on Firebase security.
 startFlow:
   do:
     - actionId: bot_message
@@ -13,21 +11,23 @@ startFlow:
         person: lucca
         messages:
           - text: >-
-              It's time to apply strong security rules to protect your data.
-              Ensure your `firestore.rules` file is set up correctly:
+              Let's secure your app with proper Firebase rules. Update your `firestore.rules` file:
 
-              ```rules_version = '2';
+              ```
+              rules_version = '2';
 
               service cloud.firestore {
                 function unchanged(key) {
                   return (key in resource.data) && (key in request.resource.data) && (resource.data[key] == request.resource.data[key]);
                 }
+
                 match /databases/{database}/documents {
                   match /restaurants/{restaurantId} {
                     allow read: if request.auth != null;
                     allow create: if request.auth != null;
                     allow update: if request.auth != null &&
                       (request.resource.data.keys() == resource.data.keys()) && unchanged('name');
+                    
                     match /ratings/{ratingId} {
                       allow read: if request.auth != null;
                       allow create: if request.auth != null &&
@@ -36,8 +36,9 @@ startFlow:
                   }
                 }
               }
+              ```
 
-              ``` Deploy the rules using the command `firebase deploy --only firestore:rules` to secure data from unauthorized access.
+              Deploy these rules with: `firebase deploy --only firestore:rules`
     - actionId: ready_message
       params:
         person: lucca
@@ -49,11 +50,12 @@ trigger:
         params:
           person: lucca
           messages:
-            - text: Woohoo, we've reached the finish line! You’ve taken an idea from code to a
-                fully functional app using Firebase. From setting up Firestore,
-                tackling real-time data, to ensuring top-notch security—it's
-                been quite a ride! You're now ready to create scalable, secure
-                apps that handle data like a pro. I'm thrilled to have been your
-                guide on this journey. Until next time, go build something
-                amazing with your new skills! 🍴🚀
+            - text: >-
+                Great work! You've successfully secured your app with Firebase rules.
+                These rules ensure:
+                - Only authenticated users can read and create restaurants
+                - Restaurant names can't be changed after creation
+                - Users can only create ratings under their own user ID
+                
+                Your app is now protected against unauthorized access! 🔒✨
       - actionId: finish_step

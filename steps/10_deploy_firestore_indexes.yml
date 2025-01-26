@@ -33,7 +33,8 @@ startFlow:
                ]
               }
 
-              ``` Deploy the indexes using `firebase deploy --only firestore:indexes`. In minutes, your indexes should be live, and errors will vanish.
+              ``` 
+              Deploy the indexes using `firebase deploy --only firestore:indexes`. In minutes, your indexes should be live, and errors will vanish.
     - actionId: ready_message
       params:
         person: lucca

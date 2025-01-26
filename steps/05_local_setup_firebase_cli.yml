@@ -16,12 +16,13 @@ startFlow:
           - text: "Let’s get the local environment ready for action. Install Firebase CLI
               using npm: `npm -g install firebase-tools`. Verify installation
               with `firebase --version` to ensure you're on v7.4.0 or later.
-              Clone the FriendlyEats GitHub repo: `git clone
-              https://github.com/firebase/friendlyeats-web`. Navigate to the
-              project directory: `cd friendlyeats-web/vanilla-js`. Use Firebase
-              CLI to authorize and link your local project to Firebase:
-              `firebase login`, then `firebase use --add`. Name your Firebase
+              Use Firebase CLI to authorize and link your local project to Firebase:
+              `firebase login`, then go to `vanilla-js` directory and run `firebase use --add`. Name your Firebase
               project as default during prompts and associate it correctly."
+          - text: "Now let's run the app in your Codespace! Execute `firebase emulators:start --only hosting`
+              in your terminal. The service will start on port 5000. Look for the 'Ports' tab
+              in your Codespace and click on the forwarded URL for port 5000 to open your FriendlyEats app
+              in a new tab. The app will automatically connect to Firebase and sign you in as an anonymous user."
     - actionId: ready_message
       params:
         person: lucca

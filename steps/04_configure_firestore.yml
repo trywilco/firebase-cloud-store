@@ -23,40 +23,29 @@ startFlow:
               protecting data from prying eyes. Set the following rules in the
               Rules tab and click Publish:
 
-              ```rules_version = '2';
-
+              ```
+              rules_version = '2';
               service cloud.firestore {
-
-              function unchanged(key) {
-
-              return (key in resource.data) && (key in request.resource.data) && (resource.data[key] == request.resource.data[key]);
-
+                function unchanged(key) {
+                  return (key in resource.data) && 
+                         (key in request.resource.data) && 
+                         (resource.data[key] == request.resource.data[key]);
+                }
+                match /databases/{database}/documents {
+                  match /restaurants/{restaurantId} {
+                    allow read: if request.auth != null;
+                    allow create: if request.auth != null;
+                    allow update: if request.auth != null && 
+                      (request.resource.data.keys() == resource.data.keys()) && 
+                      unchanged('name');
+                    match /ratings/{ratingId} {
+                      allow read: if request.auth != null;
+                      allow create: if request.auth != null && 
+                        request.resource.data.userId == request.auth.uid;
+                    }
+                  }
+                }
               }
-
-              match /databases/{database}/documents {
-
-              match /restaurants/{restaurantId} {
-
-              allow read: if request.auth != null;
-
-              allow create: if request.auth != null;
-
-              allow update: if request.auth != null && (
-
-              request.resource.data.keys() == resource.data.keys()) && unchanged('name');
-
-              match /ratings/{ratingId} {
-
-              allow read: if request.auth != null;
-
-              allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-
-              }
-
-              }
-
-              }
-
               ```
     - actionId: ready_message
       params:

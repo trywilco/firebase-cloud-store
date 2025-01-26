@@ -1,0 +1,25 @@
+id: conclusion
+learningObjectives:
+  - Review what was learned in the codelab
+hints:
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              Congratulations on completing this codelab! 🎉
+
+              You've learned how to:
+              - Perform basic and advanced operations with Cloud Firestore
+              - Work with real-time data updates
+              - Secure your data with Firebase security rules
+
+              Check out these resources to learn more:
+              - [Introduction to Cloud Firestore](https://firebase.google.com/docs/firestore/)
+              - [Choosing a Data Structure](https://firebase.google.com/docs/firestore/manage-data/structure-data)
+              - [Cloud Firestore Web Samples](https://firebase.google.com/docs/firestore/client/samples-web)
+
+              The complete solution is available in the [quickstarts-js repository](https://github.com/firebase/quickstart-js/tree/master/firestore).
+    - actionId: finish_step

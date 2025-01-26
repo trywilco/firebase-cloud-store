@@ -13,8 +13,8 @@ startFlow:
         person: lucca
         messages:
           - text: >-
-              We’re writing data to Firestore, turning our app into a dynamic
-              experience! Using JavaScript, let’s get cooking by adding
+              We're writing data to Firestore, turning our app into a dynamic
+              experience! Using JavaScript, let's get cooking by adding
               restaurant entries: Open `scripts/FriendlyEats.Data.js` and modify
               `addRestaurant` like so:
 
@@ -25,7 +25,22 @@ startFlow:
                 return collection.add(data);
               };
 
-              ``` This code snippet adds a new document to our ‘restaurants’ collection. Go back to your app and refresh it, then click 'Add Mock Data' to see new entries in Firestore.
+              ``` 
+              This code snippet adds a new document to our 'restaurants' collection. Let's add some restaurants!
+
+              1. Go back to your FriendlyEats app in your browser and refresh it.
+              2. Click "Add Mock Data".
+              3. The app will automatically generate a random set of restaurant objects and call your addRestaurant function.
+
+              Note: You won't see the data in your web app yet because we still need to implement data retrieval in the next section.
+
+              However, if you navigate to the Cloud Firestore tab in the Firebase console, you should see new documents in the restaurants collection!
+
+              ![Firestore Console View](https://firebase.google.com/static/codelabs/firestore-web/img/img6_1920.png)
+
+              Congratulations! You've successfully written data to Cloud Firestore from a web app! 
+              
+              Up next, you'll learn how to retrieve and display this data in your app.
     - actionId: ready_message
       params:
         person: lucca
