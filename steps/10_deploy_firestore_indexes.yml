@@ -1,0 +1,44 @@
+id: deploy_firestore_indexes
+learningObjectives:
+  - Deploy Firestore indexes to optimize queries.
+hints:
+  - For more on Firestore indexes, read [this
+    documentation](https://firebase.google.com/docs/firestore/query-data/index-overview).
+  - Need help deploying? This
+    [tutorial](https://www.youtube.com/watch?v=homNH2rIrqU) walks through
+    deploying indexes.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              Optimize query performance by deploying indexes. Locate
+              `firestore.indexes.json` in your project and ensure it describes
+              necessary indexes:
+
+              ```json
+
+              {
+               "indexes": [
+                 {
+                   "collectionGroup": "restaurants",
+                   "queryScope": "COLLECTION",
+                   "fields": [
+                     { "fieldPath": "city", "order": "ASCENDING" },
+                     { "fieldPath": "avgRating", "order": "DESCENDING" }
+                   ]
+                 },
+               ]
+              }
+
+              ``` Deploy the indexes using `firebase deploy --only firestore:indexes`. In minutes, your indexes should be live, and errors will vanish.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

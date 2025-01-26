@@ -1,0 +1,31 @@
+id: setup_firebase_project
+learningObjectives:
+  - Set up a new Firebase project for the app.
+hints:
+  - Need a visual? [This video](https://www.youtube.com/watch?v=fgdpvwEWJ9M)
+    offers a walkthrough of creating a Firebase project.
+  - "Having trouble with the Firebase console? Here's your safety net: [Firebase
+    Help Center](https://support.google.com/firebase/?hl=en#topic=6394989)."
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: Time to rev up those engines and set up your Firebase project. In the
+              Firebase console, click 'Add project' and name it FriendlyEats.
+              Remember the Project ID assigned, like friendlyeats-1234, as it's
+              your unique identifier. This will be used for CLI operations and
+              more. This step is essential as it creates the backbone for our
+              application. Once your project is set up, you can start to
+              leverage Firebase’s power to host and serve structured data.
+              Remember, the display name is FriendlyEats, but keep an eye on
+              that unique Project ID.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

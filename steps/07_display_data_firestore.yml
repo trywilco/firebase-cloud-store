@@ -1,0 +1,51 @@
+id: display_data_firestore
+learningObjectives:
+  - Retrieve and display real-time data from Firestore in your app.
+hints:
+  - Here's more on viewing data [in
+    Firestore](https://firebase.google.com/docs/firestore/query-data/get-data).
+  - Check this [tutorial](https://www.youtube.com/watch?v=KmH5ahYgiCA) for
+    real-time updates in Firestore.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              Show off our tasty data collection with real-time updates! Head to
+              `scripts/FriendlyEats.Data.js` and replace `getAllRestaurants`:
+
+              ```javascript
+
+              FriendlyEats.prototype.getAllRestaurants = function(renderer) {
+                var query = firebase.firestore()
+                  .collection('restaurants')
+                  .orderBy('avgRating', 'desc')
+                  .limit(50);
+                this.getDocumentsInQuery(query, renderer);
+              };
+
+              ``` Now, add a snapshot listener in `getDocumentsInQuery`:
+
+              ```javascript
+
+              FriendlyEats.prototype.getDocumentsInQuery = function(query, renderer) {
+                query.onSnapshot(function(snapshot) {
+                  if (!snapshot.size) return renderer.empty();
+                  snapshot.docChanges().forEach(function(change) {
+                    if (change.type === 'removed') renderer.remove(change.doc);
+                    else renderer.display(change.doc);
+                  });
+                });
+              };
+
+              ``` Load up the app and confirm real-time restaurant listings update automatically.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

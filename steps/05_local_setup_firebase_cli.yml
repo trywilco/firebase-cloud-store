@@ -1,0 +1,32 @@
+id: local_setup_firebase_cli
+learningObjectives:
+  - Prepare your local environment to run the app.
+hints:
+  - Need help with npm? [Here's a
+    guide](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to
+    install it.
+  - Stuck with CLI commands? [Firebase CLI
+    Documentation](https://firebase.google.com/docs/cli) to the rescue!
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: "Let’s get the local environment ready for action. Install Firebase CLI
+              using npm: `npm -g install firebase-tools`. Verify installation
+              with `firebase --version` to ensure you're on v7.4.0 or later.
+              Clone the FriendlyEats GitHub repo: `git clone
+              https://github.com/firebase/friendlyeats-web`. Navigate to the
+              project directory: `cd friendlyeats-web/vanilla-js`. Use Firebase
+              CLI to authorize and link your local project to Firebase:
+              `firebase login`, then `firebase use --add`. Name your Firebase
+              project as default during prompts and associate it correctly."
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

@@ -1,0 +1,33 @@
+id: fetch_data_queries
+learningObjectives:
+  - Write queries to fetch data once without real-time updates.
+hints:
+  - For a deeper understanding of queries, explore the [Firestore queries
+    documentation](https://firebase.google.com/docs/firestore/query-data/queries).
+  - This [guide](https://www.youtube.com/watch?v=WGIcVspqF_o) provides further
+    insight into querying Firestore once.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              Delve into fetching data once for a snapshot view. Implement the
+              `getRestaurant` function for quick retrieval:
+
+              ```javascript
+
+              FriendlyEats.prototype.getRestaurant = function(id) {
+                return firebase.firestore().collection('restaurants').doc(id).get();
+              };
+
+              ``` Clicking on a restaurant in your app should now show detailed views. Perfect for scenarios where real-time updates aren’t needed, reducing bandwidth and focusing on specific data.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

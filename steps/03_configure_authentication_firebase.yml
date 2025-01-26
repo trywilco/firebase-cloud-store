@@ -1,0 +1,31 @@
+id: configure_authentication_firebase
+learningObjectives:
+  - Implement user authentication using Firebase.
+hints:
+  - Here's a [step-by-step
+    guide](https://firebase.google.com/docs/auth/web/anonymous-auth) on
+    anonymous authentication.
+  - More on Firebase Authentication can be found
+    [here](https://firebase.google.com/docs/auth).
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: Now, onto user authentication. The silent, yet powerful protector of your
+              foodie secrets. We’ll set up anonymous authentication, so users
+              are silently signed in. Navigate to 'Build' > 'Authentication' in
+              the Firebase console, and enable the Anonymous Sign-in Provider.
+              This allows us to track user activity without manually logging
+              them in—because sometimes we all just want to be incognito.
+              Authentication increases the security of our app, making sure only
+              verified users can make changes.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

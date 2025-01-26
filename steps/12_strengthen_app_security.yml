@@ -1,0 +1,59 @@
+id: strengthen_app_security
+learningObjectives:
+  - Secure app data with Firebase security rules.
+hints:
+  - Brush up on security with this [security rules
+    guide](https://firebase.google.com/docs/firestore/security/get-started).
+  - If you’re into visual aids, here’s a helpful
+    [video](https://www.youtube.com/watch?v=MGkDFsOWut0) on Firebase security.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              It's time to apply strong security rules to protect your data.
+              Ensure your `firestore.rules` file is set up correctly:
+
+              ```rules_version = '2';
+
+              service cloud.firestore {
+                function unchanged(key) {
+                  return (key in resource.data) && (key in request.resource.data) && (resource.data[key] == request.resource.data[key]);
+                }
+                match /databases/{database}/documents {
+                  match /restaurants/{restaurantId} {
+                    allow read: if request.auth != null;
+                    allow create: if request.auth != null;
+                    allow update: if request.auth != null &&
+                      (request.resource.data.keys() == resource.data.keys()) && unchanged('name');
+                    match /ratings/{ratingId} {
+                      allow read: if request.auth != null;
+                      allow create: if request.auth != null &&
+                        request.resource.data.userId == request.auth.uid;
+                    }
+                  }
+                }
+              }
+
+              ``` Deploy the rules using the command `firebase deploy --only firestore:rules` to secure data from unauthorized access.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: bot_message
+        params:
+          person: lucca
+          messages:
+            - text: Woohoo, we've reached the finish line! You’ve taken an idea from code to a
+                fully functional app using Firebase. From setting up Firestore,
+                tackling real-time data, to ensuring top-notch security—it's
+                been quite a ride! You're now ready to create scalable, secure
+                apps that handle data like a pro. I'm thrilled to have been your
+                guide on this journey. Until next time, go build something
+                amazing with your new skills! 🍴🚀
+      - actionId: finish_step

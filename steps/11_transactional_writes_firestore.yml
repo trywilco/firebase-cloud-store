@@ -1,0 +1,46 @@
+id: transactional_writes_firestore
+learningObjectives:
+  - Execute multi-step transactions for data consistency.
+hints:
+  - Learn about Firestore transactions
+    [here](https://firebase.google.com/docs/firestore/manage-data/transactions).
+  - This [video explainer](https://www.youtube.com/watch?v=UFO5MEem40E)
+    clarifies transactions and how to use them effectively.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              Get hands-on with transactions to keep your data consistent.
+              Modify the `addRating` function to ensure synchronized updates
+              across databases:
+
+              ```javascript
+
+              FriendlyEats.prototype.addRating = function(restaurantID, rating) {
+                var collection = firebase.firestore().collection('restaurants');
+                var document = collection.doc(restaurantID);
+                var newRatingDocument = document.collection('ratings').doc();
+                return firebase.firestore().runTransaction(function(transaction) {
+                  return transaction.get(document).then(function(doc) {
+                    var data = doc.data();
+                    var newAverage = (data.numRatings * data.avgRating + rating.rating) / (data.numRatings + 1);
+                    transaction.update(document, {
+                      numRatings: data.numRatings + 1, avgRating: newAverage
+                    });
+                    return transaction.set(newRatingDocument, rating);
+                  });
+                });
+              };
+
+              ``` Transactions ensure all necessary data changes occur cohesively, preventing mismatches.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

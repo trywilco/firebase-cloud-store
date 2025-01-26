@@ -1,0 +1,36 @@
+id: write_data_firestore
+learningObjectives:
+  - Learn to write data to Firestore from the web app.
+hints:
+  - For details on writing to Firestore, check out [Firestore
+    documentation](https://firebase.google.com/docs/firestore/manage-data/add-data).
+  - Here's a [video tutorial](https://www.youtube.com/watch?v=Lybs6eKRjFo) on
+    adding data to Firestore.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              We’re writing data to Firestore, turning our app into a dynamic
+              experience! Using JavaScript, let’s get cooking by adding
+              restaurant entries: Open `scripts/FriendlyEats.Data.js` and modify
+              `addRestaurant` like so:
+
+              ```javascript
+
+              FriendlyEats.prototype.addRestaurant = function(data) {
+                var collection = firebase.firestore().collection('restaurants');
+                return collection.add(data);
+              };
+
+              ``` This code snippet adds a new document to our ‘restaurants’ collection. Go back to your app and refresh it, then click 'Add Mock Data' to see new entries in Firestore.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

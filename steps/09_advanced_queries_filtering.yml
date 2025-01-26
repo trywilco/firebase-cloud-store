@@ -1,0 +1,40 @@
+id: advanced_queries_filtering
+learningObjectives:
+  - Use advanced queries to filter and sort data.
+hints:
+  - Wondering how filters work? [This
+    article](https://firebase.google.com/docs/firestore/query-data/order-limit-data)
+    explains ordering and filtering.
+  - Learn more about compound queries in this [Firestore
+    guide](https://firebase.google.com/docs/firestore/query-data/queries#compound_queries).
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              Enhance the app’s searchability with advanced filtering. Modify
+              `getFilteredRestaurants` for dynamic query construction:
+
+              ```javascript
+
+              FriendlyEats.prototype.getFilteredRestaurants = function(filters, renderer) {
+                var query = firebase.firestore().collection('restaurants');
+                if (filters.category !== 'Any') query = query.where('category', '==', filters.category);
+                if (filters.city !== 'Any') query = query.where('city', '==', filters.city);
+                if (filters.price !== 'Any') query = query.where('price', '==', filters.price.length);
+                if (filters.sort === 'Rating') query = query.orderBy('avgRating', 'desc');
+                else if (filters.sort === 'Reviews') query = query.orderBy('numRatings', 'desc');
+                this.getDocumentsInQuery(query, renderer);
+              };
+
+              ``` Verify filtering works for categories, cities, and prices via dynamic queries. Solve index errors through automatic index creation links Firebase provides.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

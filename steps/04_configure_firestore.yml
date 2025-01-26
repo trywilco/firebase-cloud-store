@@ -1,0 +1,68 @@
+id: configure_firestore
+learningObjectives:
+  - Set up Cloud Firestore and apply security rules.
+hints:
+  - Take a look at this [quick start
+    guide](https://firebase.google.com/docs/firestore/quickstart) for Cloud
+    Firestore setup.
+  - For more on security rules, there's this handy
+    [resource](https://firebase.google.com/docs/firestore/security/get-started).
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: >-
+              It's time to activate the Cloud Firestore service—a secure,
+              scalable platform to store all things tasty. In the Firebase
+              console, navigate to 'Build' > 'Firestore Database' and click
+              'Create database'. Implement security rules to control access,
+              ensuring your data is accessed and modified by authenticated
+              users. These rules are essential for maintaining user privacy and
+              protecting data from prying eyes. Set the following rules in the
+              Rules tab and click Publish:
+
+              ```rules_version = '2';
+
+              service cloud.firestore {
+
+              function unchanged(key) {
+
+              return (key in resource.data) && (key in request.resource.data) && (resource.data[key] == request.resource.data[key]);
+
+              }
+
+              match /databases/{database}/documents {
+
+              match /restaurants/{restaurantId} {
+
+              allow read: if request.auth != null;
+
+              allow create: if request.auth != null;
+
+              allow update: if request.auth != null && (
+
+              request.resource.data.keys() == resource.data.keys()) && unchanged('name');
+
+              match /ratings/{ratingId} {
+
+              allow read: if request.auth != null;
+
+              allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+
+              }
+
+              }
+
+              }
+
+              ```
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

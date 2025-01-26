@@ -1,0 +1,34 @@
+id: overview_firebase_friendlyeats
+learningObjectives:
+  - Understand the goals and components of the FriendlyEats app.
+hints:
+  - Check out the [Firebase Documentation](https://firebase.google.com/docs) for
+    more insights into the services we'll be using.
+  - Want to see a sneak peek? [Here's a quick start
+    guide](https://firebase.google.com/docs/web/setup) for setting up Firebase.
+startFlow:
+  do:
+    - actionId: bot_message
+      params:
+        person: lucca
+        messages:
+          - text: Welcome to the quest of mastering Firebase with the FriendlyEats app!
+              We'll dive into creating a restaurant recommendation web app using
+              Firebase's Cloud Firestore. Think of it as building your very own
+              gastronomic guide, but powered by robust tech. You'll learn key
+              skills like reading and writing data to Cloud Firestore, securing
+              data through Firebase Authentication, listening to real-time
+              updates, and writing complex queries. By the end of this quest,
+              you'll have the skills to manage real-time data, secure user
+              authentications, and much more. Oh, and did I mention you’ll be
+              able to impress your friends by showing them your restaurant app?
+              Just a little bonus. Let's get those hands dirty with some
+              Firebase and cloud magic.
+    - actionId: ready_message
+      params:
+        person: lucca
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: finish_step

@@ -1,0 +1,39 @@
+id: firebase_friendlyeats
+title: Mastering Firebase with FriendlyEats
+subtitle: Create a dynamic restaurant app using Firebase
+description: >-
+  Embark on an exciting journey to create a restaurant recommendation web app
+  powered by Firebase's Cloud Firestore! In this quest, you'll learn to
+  seamlessly read and write data to Firestore, implement Firebase Authentication
+  to secure your app, and listen to data changes in real-time. You'll harness
+  complex Firestore queries and apply security rules to protect your data.
+
+  As you build the FriendlyEats app, you'll gain hands-on experience with Firebase services like Authentication, Firestore Database, and Hosting. This quest will equip you to handle real-time data updates, secure user authentication, and implement advanced queries.
+
+  By the end, you'll be proficient in using Firebase to power interactive web applications, with a strong understanding of frontend-backend integration, real-time data handling, and scalable data management. Perfect for developers aiming to elevate their web app skills.
+
+  Get ready to transform your web development process and dive deep into the world of Firebase!
+level: intermediate
+duration: 6
+skills:
+  - Firebase Integration
+  - Web Development
+  - Cloud Firestore
+  - Real-Time Data Handling
+  - User Authentication
+  - Security Rules
+steps:
+  - overview_firebase_friendlyeats
+  - setup_firebase_project
+  - configure_authentication_firebase
+  - configure_firestore
+  - local_setup_firebase_cli
+  - write_data_firestore
+  - display_data_firestore
+  - fetch_data_queries
+  - advanced_queries_filtering
+  - deploy_firestore_indexes
+  - transactional_writes_firestore
+  - strengthen_app_security
+type: PROMPT
+repository: null
