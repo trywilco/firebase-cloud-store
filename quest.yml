@@ -36,4 +36,4 @@ steps:
   - transactional_writes_firestore
   - strengthen_app_security
 type: PROMPT
-repository: null
+repository: https://github.com/firebase/friendlyeats-web
