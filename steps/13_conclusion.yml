@@ -22,4 +22,21 @@ startFlow:
               - [Cloud Firestore Web Samples](https://firebase.google.com/docs/firestore/client/samples-web)
 
               The complete solution is available in the [quickstarts-js repository](https://github.com/firebase/quickstart-js/tree/master/firestore).
-    - actionId: finish_step
+
+trigger:
+  type: user_ready_response
+  flowNode:
+    do:
+      - actionId: bot_message
+        params:
+          person: lucca
+          messages:
+            - text: >-
+                Great work! You've successfully secured your app with Firebase rules.
+                These rules ensure:
+                - Only authenticated users can read and create restaurants
+                - Restaurant names can't be changed after creation
+                - Users can only create ratings under their own user ID
+                
+                Your app is now protected against unauthorized access! 🔒✨
+      - actionId: finish_step
